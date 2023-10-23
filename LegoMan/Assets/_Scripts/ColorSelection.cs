@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class ColorSelection : MonoBehaviour
@@ -9,6 +8,7 @@ public class ColorSelection : MonoBehaviour
     {
         if (TryGetComponent(out SpriteRenderer r))
         {
+            r.color = ColorManager.Instance.GetColor();
             color = r.color;
         }
     }
