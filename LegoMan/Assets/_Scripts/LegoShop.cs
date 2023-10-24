@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using UnityEngine;
 
 public class LegoShop : MonoBehaviour
@@ -12,6 +10,7 @@ public class LegoShop : MonoBehaviour
     private Camera _mainCam;
     private GameObject _gridManager;
     private CapsuleCollider2D _playersCollider;
+    private LegoDragAndDrop _instantiatedDragAndDrop;
 
     private void Awake()
     {
@@ -30,17 +29,24 @@ public class LegoShop : MonoBehaviour
     private void OnMouseUp()
     {
         if (_instantiatedLego == null) return;
-        _instantiatedLego.GetComponent<LegoDragAndDrop>().OnMouseUp();
+        _instantiatedDragAndDrop.OnMouseUp();
         _instantiatedLego = null;
+    }
+
+    private void OnMouseDrag()
+    {
+        if (_instantiatedLego == null) return;
+        _instantiatedDragAndDrop.OnMouseDrag();
     }
 
     private void BuyLego()
     {
         _instantiatedLego = Instantiate(lego, parent);
+        _instantiatedDragAndDrop = _instantiatedLego.GetComponent<LegoDragAndDrop>();
         var mousePosition = Camera.main!.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0;
         _instantiatedLego.transform.position = mousePosition;
-        _instantiatedLego.GetComponent<LegoDragAndDrop>().Init(_gridManager, _mainCam, _playersCollider);
+        _instantiatedDragAndDrop.Init(_gridManager, _mainCam, _playersCollider);
         GameManager.Instance.balance -= price;
     }
 }

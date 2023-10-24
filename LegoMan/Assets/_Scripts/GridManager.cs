@@ -1,17 +1,16 @@
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
-    [SerializeField] private GameObject cellPrefab; // Prefab of the cell
-    [SerializeField] private int numRows = 5; // Number of rows
-    [SerializeField] private int numColumns = 5; // Number of columns
-    [SerializeField] private float cellSize = 1.0f; // Size of each cell
+    [SerializeField] private GameObject cellPrefab;
+    [SerializeField] private int numRows = 5;
+    [SerializeField] private int numColumns = 5;
+    [SerializeField] private float cellSize = 1.0f;
 
-    private GameObject _selectedLegoPiece; // Reference to the currently selected LEGO piece
-    private string _selectedLegoType; // The LEGO type of the selected piece
-    private List<GameObject> _grids = new List<GameObject>();
+    private GameObject _selectedLegoPiece;
+    private string _selectedLegoType;
+    private readonly List<GameObject> _grids = new List<GameObject>();
     private Vector3 _initialPos;
 
     private void Start()
@@ -35,16 +34,14 @@ public class GridManager : MonoBehaviour
         }
         gameObject.SetActive(false);
     }
-
-    // Call this method when you select a LEGO piece, providing the LEGO type
+    
     public void SelectLegoPiece(GameObject legoPiece, string legoType, Vector3 initialPos)
     {
         _selectedLegoPiece = legoPiece;
         _selectedLegoType = legoType;
         _initialPos = initialPos;
     }
-
-    // Call this method when you want to snap the selected LEGO piece to the grid
+    
     public void SnapToGrid()
     {
         if (_selectedLegoPiece == null) return;
