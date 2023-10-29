@@ -1,9 +1,12 @@
+using TMPro;
 using UnityEngine;
 
 public class SellLEGO : MonoBehaviour
 {
     [SerializeField] private Transform legoShop;
     [SerializeField] private Transform legoSell;
+    [SerializeField] private TextMeshProUGUI sellUI;
+    [SerializeField] private GameEvent trade;
     private bool _isShopActivated;
 
     private void Update()
@@ -36,7 +39,13 @@ public class SellLEGO : MonoBehaviour
 
     public void SellLego(Component sender, object price)
     {
-        GameManager.Instance.balance += (int)price;
+        trade.Raise((int)price);
         Destroy(sender.gameObject);
+    }
+
+    public void OnLegoMouseDown(Component sender, object data)
+    {
+        var price = (int)data;
+        sellUI.text = $"Sell for {price}g";
     }
 }

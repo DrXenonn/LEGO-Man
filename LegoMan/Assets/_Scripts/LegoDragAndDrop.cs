@@ -14,6 +14,7 @@ public class LegoDragAndDrop : MonoBehaviour
     [SerializeField] private BoxCollider2D boxCollider2D;
     [SerializeField] private GameEvent sell;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private GameEvent onLegoMouseDown;
     
     private Camera _camera;
     private Vector3 _mouseOffset;
@@ -50,6 +51,7 @@ public class LegoDragAndDrop : MonoBehaviour
         var position = transform.position;
         _initialPosition = position;
         _mouseOffset = position - GetMousePos();
+        onLegoMouseDown.Raise(price);
     }
 
     private void Update()

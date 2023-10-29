@@ -5,7 +5,6 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     
     public float fallInterval = 1.0f;
-    public int balance;
     [HideInInspector] public bool isHolding;
 
     private void Awake()

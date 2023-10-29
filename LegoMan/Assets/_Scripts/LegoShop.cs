@@ -5,6 +5,9 @@ public class LegoShop : MonoBehaviour
     [SerializeField] private GameObject lego;
     [SerializeField] private int price;
     [SerializeField] private Transform parent;
+    [SerializeField] private GameEvent trade;
+    [SerializeField] private Balance balance;
+    [SerializeField] private GameObject disabledEffect;
 
     private GameObject _instantiatedLego;
     private Camera _mainCam;
@@ -17,11 +20,12 @@ public class LegoShop : MonoBehaviour
         _mainCam = Camera.main;
         _gridManager = GameObject.FindWithTag("GridManager").gameObject;
         _playersCollider = GameObject.FindWithTag("Player").GetComponent<CapsuleCollider2D>();
+        UpdateDisabledEffect(null, null);
     }
 
     private void OnMouseDown()
     {
-        if (!(GameManager.Instance.balance >= price)) return;
+        if (!(balance.GetBalance() >= price)) return;
 
         BuyLego();
     }
@@ -47,6 +51,11 @@ public class LegoShop : MonoBehaviour
         mousePosition.z = 0;
         _instantiatedLego.transform.position = mousePosition;
         _instantiatedDragAndDrop.Init(_gridManager, _mainCam, _playersCollider);
-        GameManager.Instance.balance -= price;
+        trade.Raise(-price);
+    }
+
+    public void UpdateDisabledEffect(Component sender, object data)
+    {
+        disabledEffect.SetActive(balance.GetBalance() < price);
     }
 }

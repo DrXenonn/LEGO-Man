@@ -105,6 +105,7 @@ MonoBehaviour:
   boxCollider2D: {fileID: 375127182842777871}
   sell: {fileID: 11400000, guid: 82c13d995f7efc942933148cb0706b72, type: 2}
   spriteRenderer: {fileID: 375127182842777907}
+  onLegoMouseDown: {fileID: 11400000, guid: 17dac3531e3395b48a948cd8647683a5, type: 2}
   price: 3
 --- !u!61 &375127182842777871
 BoxCollider2D:

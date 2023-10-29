@@ -5,7 +5,9 @@ public class ColorManager : MonoBehaviour
 {
     public static ColorManager Instance { get; private set; }
     [SerializeField] private Color[] colors;
-    
+    [SerializeField] private SpriteRenderer[] shopSprites;
+
+
     private int _index = 0;
 
 
@@ -14,13 +16,14 @@ public class ColorManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
         }
+        
     }
+
 
     public Color GetColor()
     {
@@ -29,6 +32,7 @@ public class ColorManager : MonoBehaviour
             _index = 0;
         }
         
+
         var selectedColor = colors[_index];
         _index++;
 
