@@ -7,6 +7,7 @@ public class Balance : MonoBehaviour
     [SerializeField] private int balance;
     [SerializeField] private TextMeshProUGUI balanceUI;
     [SerializeField] private GameEvent updateDisabledShop;
+    [SerializeField] private Animator animator;
 
     private void Start()
     {
@@ -26,6 +27,7 @@ public class Balance : MonoBehaviour
         }
 
         UpdateUI();
+        PlayTradeAnimation(amount);
     }
 
     public int GetBalance()
@@ -37,5 +39,10 @@ public class Balance : MonoBehaviour
     {
         balanceUI.text = balance.ToString();
         updateDisabledShop.Raise();
+    }
+
+    private void PlayTradeAnimation(int value = 0)
+    {
+        animator.Play(value < 0 ? "BuyUI" : "SellUI");
     }
 }

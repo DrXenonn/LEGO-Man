@@ -8,6 +8,7 @@ public class LegoShop : MonoBehaviour
     [SerializeField] private GameEvent trade;
     [SerializeField] private Balance balance;
     [SerializeField] private GameObject disabledEffect;
+    [SerializeField] private AudioSource notEnoughCoinsSound;
 
     private GameObject _instantiatedLego;
     private Camera _mainCam;
@@ -25,9 +26,19 @@ public class LegoShop : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (!(balance.GetBalance() >= price)) return;
+        if (!(balance.GetBalance() >= price))
+        {
+            NotEnoughCoins();
+        }
+        else
+        {
+            BuyLego();
+        }
+    }
 
-        BuyLego();
+    private void NotEnoughCoins()
+    {
+        notEnoughCoinsSound.Play();
     }
 
     private void OnMouseUp()

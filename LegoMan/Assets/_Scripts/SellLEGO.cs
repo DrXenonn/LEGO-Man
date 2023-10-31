@@ -7,6 +7,7 @@ public class SellLEGO : MonoBehaviour
     [SerializeField] private Transform legoSell;
     [SerializeField] private TextMeshProUGUI sellUI;
     [SerializeField] private GameEvent trade;
+    [SerializeField] private AudioSource audioSource;
     private bool _isShopActivated;
 
     private void Update()
@@ -40,6 +41,7 @@ public class SellLEGO : MonoBehaviour
     public void SellLego(Component sender, object price)
     {
         trade.Raise((int)price);
+        audioSource.Play();
         Destroy(sender.gameObject);
     }
 
