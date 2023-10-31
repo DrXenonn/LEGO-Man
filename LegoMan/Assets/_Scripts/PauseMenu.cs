@@ -2,16 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class PauseMenu : MonoBehaviour
 {
-    public static bool gameIsPause = false;
-    public GameObject PauseMenuUI;
+    private static bool _isGamePaused = false;
+    [SerializeField] private GameObject pauseMenuUI;
+    [SerializeField] private GameObject darkMask;
+    
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (gameIsPause)
+            if (_isGamePaused)
             {
                 Resume();
             }
@@ -24,15 +27,17 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
-        PauseMenuUI.SetActive(false);
+        pauseMenuUI.SetActive(false);
+        darkMask.SetActive(false);
         Time.timeScale = 1.0f;
-        gameIsPause = false;
+        _isGamePaused = false;
     }
     private void Pause()
     {
-        PauseMenuUI.SetActive(true);
+        pauseMenuUI.SetActive(true);
+        darkMask.SetActive(true);
         Time.timeScale = 0f;
-        gameIsPause = true;
+        _isGamePaused = true;
     }
 
     public void LoadMenu()
