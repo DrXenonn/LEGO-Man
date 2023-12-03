@@ -10,17 +10,13 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
     }
-    public void QuitGmae()
+    public void QuitGame()
     {
         Application.Quit();
     }
 
     public void SetVolume(float volume)
     {
-        if (volume < -35)
-        {
-            volume = -80;
-        }
         audioMixer.SetFloat("Volume", volume);
     }
     public void SetFullscreen(bool isFullscreen)

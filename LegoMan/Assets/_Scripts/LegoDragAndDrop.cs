@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class LegoDragAndDrop : MonoBehaviour
@@ -98,6 +99,17 @@ public class LegoDragAndDrop : MonoBehaviour
             }
 
             _gridManager.SnapToGrid();
+        }
+    }
+
+    private void OnMouseOver()
+    {
+        if (Input.GetMouseButtonDown(1) && !Input.GetMouseButtonDown(0))
+        {
+            GameManager.Instance.isHolding = false;
+            _grids.SetActive(false);
+            _isDragging = false;
+            sell.Raise(gameObject.transform, price);
         }
     }
 

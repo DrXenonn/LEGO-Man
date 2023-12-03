@@ -7,9 +7,7 @@ public class GameEvent : ScriptableObject
 {
 
     public List<GameEventListener> listeners = new List<GameEventListener>();
-
-    // Raise event through different method signatures
-    // ############################################################
+    
 
     public void Raise()
     {
@@ -33,9 +31,6 @@ public class GameEvent : ScriptableObject
             listeners[i].OnEventRaised(sender, data);
         }
     }
-
-    // Manage Listeners
-    // ############################################################
 
     public void RegisterListener(GameEventListener listener)
     {

@@ -1,24 +1,15 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
-namespace TarodevController
-{
-    public class PlayerAnimator : MonoBehaviour
+public class PlayerAnimator : MonoBehaviour
     {
-        [Header("References")] [SerializeField]
-        private Animator _anim;
-
-        [SerializeField] private SpriteRenderer _sprite;
-        
-        [Header("Particles")]
-        [SerializeField] private ParticleSystem _launchParticles;
-        [SerializeField] private ParticleSystem _landParticles;
-
-        [Header("Audio Clips")] [SerializeField]
-        private AudioClip[] _footsteps;
+        [SerializeField] private Animator anim;
+        [FormerlySerializedAs("_sprite")] [SerializeField] private SpriteRenderer sprite;
+        [FormerlySerializedAs("_landParticles")] [SerializeField] private ParticleSystem landParticles;
+        [SerializeField] private AudioClip[] _footsteps;
 
         private AudioSource _source;
         private IPlayerController _player;
-        private bool _grounded;
         private ParticleSystem.MinMaxGradient _currentGradient;
 
         private void Awake()
@@ -50,40 +41,32 @@ namespace TarodevController
 
         private void HandleRunAnimation()
         {
-            _anim.SetBool(IsMoving, _player.FrameInput.x != 0);
+            anim.SetBool(IsMoving, _player.FrameInput.x != 0);
         }
 
         private void HandleSpriteFlip()
         {
-            if (_player.FrameInput.x != 0) _sprite.flipX = _player.FrameInput.x < 0;
+            if (_player.FrameInput.x != 0) sprite.flipX = _player.FrameInput.x < 0;
         }
 
         private void OnJumped()
         {
-            _anim.SetTrigger(JumpKey);
-            _anim.ResetTrigger(GroundedKey);
-            
-
-            if (_grounded) // Avoid coyote
-            {
-                SetColor(_launchParticles);
-            }
+            anim.SetTrigger(JumpKey);
+            anim.ResetTrigger(GroundedKey);
         }
 
         private void OnGroundedChanged(bool grounded, float impact)
         {
-            _grounded = grounded;
-
             if (grounded)
             {
                 DetectGroundColor();
-                SetColor(_landParticles);
+                SetColor(landParticles);
 
-                _anim.SetTrigger(GroundedKey);
+                anim.SetTrigger(GroundedKey);
                 _source.PlayOneShot(_footsteps[Random.Range(0, _footsteps.Length)]);
 
-                _landParticles.transform.localScale = Vector3.one * Mathf.InverseLerp(0, 40, impact);
-                _landParticles.Play();
+                landParticles.transform.localScale = Vector3.one * Mathf.InverseLerp(0, 40, impact);
+                landParticles.Play();
             }
         }
 
@@ -108,4 +91,3 @@ namespace TarodevController
         private static readonly int JumpKey = Animator.StringToHash("Jump");
         private static readonly int IsMoving = Animator.StringToHash("IsMoving");
     }
-}

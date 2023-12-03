@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,18 +5,22 @@ public class Win : MonoBehaviour
 {
     [SerializeField] private GameObject winPanel;
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.collider.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
-            if (SceneManager.GetActiveScene().buildIndex == 8)
+            if (SceneManager.GetActiveScene().buildIndex == SceneManager.sceneCountInBuildSettings - 1)
             {
                 winPanel!.SetActive(true);
+                Time.timeScale = 0;
+                Destroy(gameObject);
             }
-
-            UnlockNewLevel();
-            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
-            Destroy(gameObject);
+            else
+            {
+                UnlockNewLevel();
+                SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+                Destroy(gameObject);
+            }
         }
     }
 

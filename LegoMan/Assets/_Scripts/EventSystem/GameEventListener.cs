@@ -8,11 +8,8 @@ public class CustomGameEvent : UnityEvent<Component, object> { }
 
 public class GameEventListener : MonoBehaviour
 {
-
-    [Tooltip("Event to register with.")]
     public GameEvent gameEvent;
-
-    [Tooltip("Response to invoke when Event with GameData is raised.")]
+    
     public CustomGameEvent response;
 
     private void OnEnable()
@@ -29,5 +26,4 @@ public class GameEventListener : MonoBehaviour
     {
         response.Invoke(sender, data);
     }
-
 }

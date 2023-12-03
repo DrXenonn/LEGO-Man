@@ -1,5 +1,7 @@
 using UnityEngine;
+using UnityEngine.UI;
 
+[RequireComponent(typeof(Outline))]
 public class LegoShop : MonoBehaviour
 {
     [SerializeField] private GameObject lego;
@@ -9,6 +11,7 @@ public class LegoShop : MonoBehaviour
     [SerializeField] private Balance balance;
     [SerializeField] private GameObject disabledEffect;
     [SerializeField] private AudioSource notEnoughCoinsSound;
+    [SerializeField] private Outline outline;
 
     private GameObject _instantiatedLego;
     private Camera _mainCam;
@@ -18,6 +21,7 @@ public class LegoShop : MonoBehaviour
 
     private void Awake()
     {
+        outline = GetComponent<Outline>();
         _mainCam = Camera.main;
         _gridManager = GameObject.FindWithTag("GridManager").gameObject;
         _playersCollider = GameObject.FindWithTag("Player").GetComponent<CapsuleCollider2D>();
@@ -34,6 +38,16 @@ public class LegoShop : MonoBehaviour
         {
             BuyLego();
         }
+    }
+
+    private void OnMouseOver()
+    {
+        outline.enabled = true;
+    }
+
+    private void OnMouseExit()
+    {
+        outline.enabled = false;
     }
 
     private void NotEnoughCoins()

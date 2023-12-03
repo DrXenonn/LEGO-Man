@@ -6,8 +6,7 @@ public class ColorManager : MonoBehaviour
     public static ColorManager Instance { get; private set; }
     [SerializeField] private Color[] colors;
     private int _index = 0;
-
-
+    
     private void Awake()
     {
         if (Instance == null)
@@ -19,7 +18,6 @@ public class ColorManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
 
     public Color GetColor()
     {

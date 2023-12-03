@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -36,7 +33,7 @@ public class PauseMenu : MonoBehaviour
     {
         pauseMenuUI.SetActive(true);
         darkMask.SetActive(true);
-        Time.timeScale = 0f;
+        Time.timeScale = 0;
         _isGamePaused = true;
     }
 
